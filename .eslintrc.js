@@ -12,7 +12,7 @@ module.exports = {
     plugins: ["react"],
     rules: {
         indent: ["error", 4], // отступ
-        semi: [2, "always"], // точка с запятой
+        semi: [1, "always"], // точка с запятой
         "space-before-function-paren": [
             "error",
             { anonymous: "always", named: "never" }
