@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const TableHeader = ({ onSort, selectedSort, columns }) => {
@@ -28,7 +28,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                         scope="col"
                     >
                         {columns[column].name}
-                        {/* {flag && <i className="bi bi-caret-down-fill"></i>} */}
+
                         {/* {<i className="bi bi-caret-down-fill"></i>} */}
                     </th>
                 ))}
