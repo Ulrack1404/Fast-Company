@@ -16,7 +16,7 @@ const Users = () => {
 
     const pageSize = 8;
 
-    const [users, setUsers] = useState(api.users.fetchAll());
+    const [users, setUsers] = useState();
 
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
@@ -32,6 +32,10 @@ const Users = () => {
         );
         console.log(id);
     };
+
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
+    }, []);
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfession(data));
@@ -56,7 +60,12 @@ const Users = () => {
 
     if (users) {
         const filteredUsers = selectedProf
-            ? users.filter((user) => user.profession === selectedProf)
+            ? users.filter((user) => {
+                  return (
+                      JSON.stringify(user.profession) ===
+                      JSON.stringify(selectedProf)
+                  );
+              })
             : users;
 
         const count = filteredUsers.length;
