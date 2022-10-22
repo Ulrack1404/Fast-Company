@@ -11,7 +11,7 @@ module.exports = {
     },
     plugins: ["react"],
     rules: {
-        indent: ["error", 4], // отступ
+        indent: ["off", 4], // отступ
         semi: [1, "always"], // точка с запятой
         "space-before-function-paren": [
             "error",
