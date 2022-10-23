@@ -86,7 +86,7 @@ const Users = () => {
         return (
             <>
                 {userId ? (
-                    <User />
+                    <User users={users} id={userId} />
                 ) : (
                     <div className="d-flex">
                         {professions && (
