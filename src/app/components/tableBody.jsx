@@ -12,14 +12,6 @@ const TableBody = ({ data, columns }) => {
             }
             return component;
         }
-        if (column === "name") {
-            return (
-                <Link key={item._id} to={`users/${item._id}`}>
-                {item.name}
-                </Link>
-            );
-        }
-        // console.log(columns);
 
         return _.get(item, columns[column].path);
     };
