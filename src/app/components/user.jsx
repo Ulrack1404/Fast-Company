@@ -9,7 +9,6 @@ const User = ({ id }) => {
     useEffect(() => {
         api.users.getById(id).then((data) => setUser(data));
     }, []);
-    console.log(user);
 
     return <>{user ? <UserData user={user} /> : <h1>Loading</h1>}</>;
 };

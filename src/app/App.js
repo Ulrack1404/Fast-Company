@@ -14,6 +14,7 @@ function App() {
                 <Route path="/" exact component={Main} />
                 <Route path="/login" component={Login} />
                 <Route path="/users/:userId?" component={UsersList} />
+                <Redirect to={"/"} />
             </Switch>
         </>
     );
