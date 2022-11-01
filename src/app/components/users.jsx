@@ -15,6 +15,7 @@ const Users = () => {
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
+    const [searchContent, setSearchContent] = useState("");
     const params = useParams();
     const { userId } = params;
 
@@ -51,6 +52,8 @@ const Users = () => {
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
+        setSearchContent("");
+        setUsers(users);
     };
 
     const handlePageChange = (pageIndex) => {
@@ -60,6 +63,18 @@ const Users = () => {
 
     const handleSort = (item) => {
         setSortBy(item);
+    };
+
+    const searhHandleChange = (e) => {
+        setSearchContent(e.target.value);
+        setUsers(
+            users.filter(
+                (user) =>
+                    user.name
+                        .toUpperCase()
+                        .indexOf(e.target.value.toUpperCase()) > -1
+            )
+        );
     };
 
     if (users) {
@@ -108,6 +123,12 @@ const Users = () => {
                         )}
                         <div className="d-flex flex-column">
                             <SearchStatus length={count} />
+                            <input
+                                placeholder="Search..."
+                                className="form-control"
+                                value={searchContent}
+                                onChange={searhHandleChange}
+                            />
                             {count > 0 && (
                                 <UserTable
                                     users={usersCrop}
