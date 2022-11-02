@@ -53,7 +53,6 @@ const Users = () => {
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
         setSearchContent("");
-        setUsers(users);
     };
 
     const handlePageChange = (pageIndex) => {
@@ -67,18 +66,18 @@ const Users = () => {
 
     const searhHandleChange = (e) => {
         setSearchContent(e.target.value);
-        setUsers(
-            users.filter(
-                (user) =>
-                    user.name
-                        .toUpperCase()
-                        .indexOf(e.target.value.toUpperCase()) > -1
-            )
-        );
+        setSelectedProf(undefined);
     };
 
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = searchContent
+            ? users.filter(
+                  (user) =>
+                      user.name
+                          .toUpperCase()
+                          .indexOf(searchContent.toUpperCase()) > -1
+              )
+            : selectedProf
             ? users.filter((user) => {
                   return (
                       JSON.stringify(user.profession) ===
