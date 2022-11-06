@@ -10,9 +10,9 @@ import _ from "lodash";
 const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
+    const [searchQuery, setSearchQuery] = useState("");
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
-    const [searchContent, setSearchContent] = useState("");
     const pageSize = 8;
 
     const [users, setUsers] = useState();
@@ -38,11 +38,15 @@ const UsersListPage = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, searchQuery]);
 
     const handleProfessionSelect = (item) => {
+        if (searchQuery !== "") setSearchQuery("");
         setSelectedProf(item);
-        setSearchContent("");
+    };
+    const handleSearchQuery = ({ target }) => {
+        setSelectedProf(undefined);
+        setSearchQuery(target.value);
     };
 
     const handlePageChange = (pageIndex) => {
@@ -52,18 +56,13 @@ const UsersListPage = () => {
         setSortBy(item);
     };
 
-    const searhHandleChange = (e) => {
-        setSearchContent(e.target.value);
-        setSelectedProf(undefined);
-    };
-
     if (users) {
-        const filteredUsers = searchContent
+        const filteredUsers = searchQuery
             ? users.filter(
                   (user) =>
                       user.name
-                          .toUpperCase()
-                          .indexOf(searchContent.toUpperCase()) > -1
+                          .toLowerCase()
+                          .indexOf(searchQuery.toLowerCase()) !== -1
               )
             : selectedProf
             ? users.filter(
@@ -105,10 +104,11 @@ const UsersListPage = () => {
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
                     <input
+                        type="text"
+                        name="searchQuery"
                         placeholder="Search..."
-                        className="form-control"
-                        value={searchContent}
-                        onChange={searhHandleChange}
+                        onChange={handleSearchQuery}
+                        value={searchQuery}
                     />
                     {count > 0 && (
                         <UserTable

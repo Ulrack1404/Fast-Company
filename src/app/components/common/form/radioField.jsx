@@ -5,7 +5,6 @@ const RadioField = ({ options, name, onChange, value, label }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
-
     return (
         <div className="mb-4">
             <label className="form-label">{label}</label>
@@ -36,6 +35,7 @@ const RadioField = ({ options, name, onChange, value, label }) => {
         </div>
     );
 };
+
 RadioField.propTypes = {
     options: PropTypes.array,
     name: PropTypes.string,
