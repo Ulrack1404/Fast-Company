@@ -7,6 +7,7 @@ import { useHistory, Link } from "react-router-dom";
 const UserPage = ({ userId }) => {
     const history = useHistory();
     const [user, setUser] = useState();
+    console.log(user);
     useEffect(() => {
         api.users.getById(userId).then((data) => setUser(data));
     }, []);
@@ -21,9 +22,15 @@ const UserPage = ({ userId }) => {
                 <Qualities qualities={user.qualities} />
                 <p>completedMeetings: {user.completedMeetings}</p>
                 <h2>Rate: {user.rate}</h2>
-                <button>
-                    {" "}
+                {/* <button>
                     <Link to={`/users/${user._id}/edit`}>Изменить</Link>
+                </button> */}
+                <button
+                    onClick={() => {
+                        history.push(`/users/${userId}/edit`);
+                    }}
+                >
+                    Изменить
                 </button>
             </div>
         );
