@@ -6,8 +6,7 @@ import SmallTitle from "../common/typografy/smallTitle";
 import CardWrapper from "../common/Card";
 
 // Simple Component
-/* eslint-disable react/display-name */
-const SimpleComponent = ({ onLogin, onLogOut, isAuth }) => {
+const SimpleComponent = ({onLogin, onLogOut, isAuth}) => {
     return isAuth ? (
         <button className="btn btn-secondary" onClick={onLogOut}>
             Выйти из системы
@@ -22,11 +21,11 @@ const SimpleComponent = ({ onLogin, onLogOut, isAuth }) => {
 SimpleComponent.propTypes = {
     onLogin: PropTypes.func,
     onLogOut: PropTypes.func,
-    isAuth: PropTypes.bool
+    isAuth: PropTypes.bool,
 };
 
 // HOC Component
-const withFunctions = (Component) => (props) => {
+const withFunctions = Component => props => {
     const handleLogin = () => {
         localStorage.setItem("auth", "token");
     };
