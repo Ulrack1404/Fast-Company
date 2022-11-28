@@ -5,7 +5,6 @@ import Users from "./layouts/users";
 import Login from "./layouts/login";
 import Main from "./layouts/main";
 import NavBar from "./components/ui/navBar";
-import EditUserPage from "./components/page/editUserPage";
 
 function App() {
     return (
