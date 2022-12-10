@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import userService from "../services/user.service";
 import { toast } from "react-toastify";
@@ -22,7 +22,6 @@ const UserProvider = ({ children }) => {
             setError(null);
         }
     }, [error]);
-
     async function getUsers() {
         try {
             const { content } = await userService.get();
@@ -35,16 +34,14 @@ const UserProvider = ({ children }) => {
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
+        setLoading(false);
     }
-
     return (
         <UserContext.Provider value={{ users }}>
-            {!isLoading ? children : "loading..."}
+            {!isLoading ? children : "Loading..."}
         </UserContext.Provider>
     );
 };
-
-export default UserProvider;
 
 UserProvider.propTypes = {
     children: PropTypes.oneOfType([
@@ -52,3 +49,5 @@ UserProvider.propTypes = {
         PropTypes.node
     ])
 };
+
+export default UserProvider;

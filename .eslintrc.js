@@ -11,7 +11,7 @@ module.exports = {
     },
     plugins: ["react"],
     rules: {
-        "multiline-ternary": ["off", "always"],        
+        "multiline-ternary": ["off", "always"],
         indent: ["off", 4], // отступ
         semi: [1, "always"], // точка с запятой
         "space-before-function-paren": [
@@ -19,7 +19,7 @@ module.exports = {
             { anonymous: "always", named: "never" }
         ], // пробел между функцией и аргументами в скобках
         quotes: ["error", "double", { allowTemplateLiterals: true }], // кавычки
-        "no-unused-vars": ["off", { ignoreRestSiblings: true }] // игнорировать объявленные, но не используемые переменные
+     "no-unused-vars": ["off", { ignoreRestSiblings: true }] // игнорировать объявленные, но не используемые переменные
         // "react/prop-types": "off" // отключает ошибки react/prop-types
     }
 };
