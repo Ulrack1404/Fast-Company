@@ -18,8 +18,12 @@ module.exports = {
             "error",
             { anonymous: "always", named: "never" }
         ], // пробел между функцией и аргументами в скобках
-        quotes: ["error", "double", { allowTemplateLiterals: true }], // кавычки
-     "no-unused-vars": ["off", { ignoreRestSiblings: true }] // игнорировать объявленные, но не используемые переменные
+        quotes: [
+            "error",
+            "double",
+            { allowTemplateLiterals: true, avoidEscape: true }
+        ], // кавычки
+        "no-unused-vars": ["off", { ignoreRestSiblings: true }] // игнорировать объявленные, но не используемые переменные
         // "react/prop-types": "off" // отключает ошибки react/prop-types
     }
 };
