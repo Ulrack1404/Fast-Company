@@ -16,14 +16,25 @@ module.exports = {
         semi: [1, "always"], // точка с запятой
         "space-before-function-paren": [
             "error",
-            { anonymous: "always", named: "never" }
+            {
+                anonymous: "always",
+                named: "never"
+            }
         ], // пробел между функцией и аргументами в скобках
         quotes: [
             "error",
             "double",
-            { allowTemplateLiterals: true, avoidEscape: true }
+            {
+                allowTemplateLiterals: true,
+                avoidEscape: true
+            }
         ], // кавычки
-        "no-unused-vars": ["off", { ignoreRestSiblings: true }] // игнорировать объявленные, но не используемые переменные
+        "no-unused-vars": [
+            "off",
+            {
+                ignoreRestSiblings: true
+            }
+        ] // игнорировать объявленные, но не используемые переменные
         // "react/prop-types": "off" // отключает ошибки react/prop-types
     }
 };
