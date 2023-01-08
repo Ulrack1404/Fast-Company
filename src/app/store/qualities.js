@@ -29,7 +29,7 @@ const { reducer: qualitiesReducer, actions } = qualitiesSlice;
 const { qualitiesRequested, qualitiesReceived, qualitiesRequestFailed } =
     actions;
 
-function isOutdated(date) {
+export function isOutdated(date) {
     if (Date.now() - date > 10 * 60 * 1000) {
         return true;
     }
@@ -39,7 +39,6 @@ function isOutdated(date) {
 export const loadQualitiesList = () => async (dispatch, getState) => {
     const { lastFetch } = getState().qualities;
     if (isOutdated(lastFetch)) {
-        console.log(lastFetch);
         dispatch(qualitiesRequested());
         try {
             const { content } = await qualityService.fetchAll();
