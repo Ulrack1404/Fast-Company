@@ -1,4 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+    useContext,
+    useEffect,
+    useState
+} from "react";
 import PropTypes from "prop-types";
 import ProfessionService from "../services/profession.service";
 import { toast } from "react-toastify";
@@ -27,13 +31,11 @@ export const ProfessionProvider = ({ children }) => {
         const { message } = error.response.data;
         setError(message);
     }
-    function getProfession(id) {
-        return professions.find((p) => p._id === id);
-    }
 
     async function getProfessionsList() {
         try {
-            const { content } = await ProfessionService.get();
+            const { content } =
+                await ProfessionService.get();
             setProfessions(content);
             setLoading(false);
         } catch (error) {
@@ -43,7 +45,10 @@ export const ProfessionProvider = ({ children }) => {
 
     return (
         <ProfessionContext.Provider
-            value={{ isLoading, professions, getProfession }}
+            value={{
+                isLoading,
+                professions
+            }}
         >
             {children}
         </ProfessionContext.Provider>
