@@ -26,43 +26,32 @@ const professionsSlice = createSlice({
     }
 });
 
-export const getProfessions = () => (state) =>
-    state.professions.entities;
+export const getProfessions = () => (state) => state.professions.entities;
 
 export const getProfessionsLoadingStatus = () => (state) =>
     state.professions.isLoading;
 
-export const loadProfessions =
-    () => async (dispatch, getState) => {
-        const { lastFetch } = getState().professions;
-        if (isOutdated(lastFetch)) {
-            dispatch(professionsRequested());
-            try {
-                const { content } =
-                    await professionService.get();
-                dispatch(professionsReceived(content));
-            } catch (error) {
-                dispatch(
-                    professionsRequestFailed(error.message)
-                );
-            }
+export const loadProfessionsList = () => async (dispatch, getState) => {
+    const { lastFetch } = getState().professions;
+    if (isOutdated(lastFetch)) {
+        dispatch(professionsRequested());
+        try {
+            const { content } = await professionService.get();
+            dispatch(professionsReceived(content));
+        } catch (error) {
+            dispatch(professionsRequestFailed(error.message));
         }
-    };
-
-export const getProfessionById = (id) => (state) => {
-    if (state.professions.entities) {
-        return state.professions.entities.find(
-            (p) => p._id === id
-        );
     }
 };
 
-const { reducer: professionsReducer, actions } =
-    professionsSlice;
-const {
-    professionsRequested,
-    professionsReceived,
-    professionsRequestFailed
-} = actions;
+export const getProfessionById = (id) => (state) => {
+    if (state.professions.entities) {
+        return state.professions.entities.find((p) => p._id === id);
+    }
+};
+
+const { reducer: professionsReducer, actions } = professionsSlice;
+const { professionsRequested, professionsReceived, professionsRequestFailed } =
+    actions;
 
 export default professionsReducer;

@@ -16,24 +16,22 @@ import {
     getProfessions,
     getProfessionsLoadingStatus
 } from "../../../store/professions";
+import { getCurrentUserData } from "../../../store/users";
 
 const EditUserPage = () => {
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState();
-    const { currentUser, updateUserData } = useAuth();
+    const { updateUserData } = useAuth();
+    const currentUser = useSelector(getCurrentUserData());
     const qualities = useSelector(getQualities());
-    const qualitiesLoading = useSelector(
-        getQualitiesLoadingStatus()
-    );
+    const qualitiesLoading = useSelector(getQualitiesLoadingStatus());
     const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
     const professions = useSelector(getProfessions());
-    const professionLoading = useSelector(
-        getProfessionsLoadingStatus()
-    );
+    const professionLoading = useSelector(getProfessionsLoadingStatus());
 
     const professionsList = professions.map((p) => ({
         label: p.name,
@@ -65,34 +63,20 @@ const EditUserPage = () => {
         return qualitiesArray;
     }
     const transformData = (data) => {
-        const result = getQualitiesListByIds(data).map(
-            (qual) => ({
-                label: qual.name,
-                value: qual._id
-            })
-        );
+        const result = getQualitiesListByIds(data).map((qual) => ({
+            label: qual.name,
+            value: qual._id
+        }));
         return result;
     };
     useEffect(() => {
-        if (
-            !professionLoading &&
-            !qualitiesLoading &&
-            currentUser &&
-            !data
-        ) {
+        if (!professionLoading && !qualitiesLoading && currentUser && !data) {
             setData({
                 ...currentUser,
-                qualities: transformData(
-                    currentUser.qualities
-                )
+                qualities: transformData(currentUser.qualities)
             });
         }
-    }, [
-        professionLoading,
-        qualitiesLoading,
-        currentUser,
-        data
-    ]);
+    }, [professionLoading, qualitiesLoading, currentUser, data]);
     useEffect(() => {
         if (data && isLoading) {
             setIsLoading(false);
@@ -102,8 +86,7 @@ const EditUserPage = () => {
     const validatorConfig = {
         email: {
             isRequired: {
-                message:
-                    "Электронная почта обязательна для заполнения"
+                message: "Электронная почта обязательна для заполнения"
             },
             isEmail: {
                 message: "Email введен некорректно"
@@ -135,8 +118,7 @@ const EditUserPage = () => {
             <BackHistoryButton />
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-4">
-                    {!isLoading &&
-                    Object.keys(professions).length > 0 ? (
+                    {!isLoading && Object.keys(professions).length > 0 ? (
                         <form onSubmit={handleSubmit}>
                             <TextField
                                 label="Имя"
@@ -182,9 +164,7 @@ const EditUserPage = () => {
                                 label="Выберите ваш пол"
                             />
                             <MultiSelectField
-                                defaultValue={
-                                    data.qualities
-                                }
+                                defaultValue={data.qualities}
                                 options={qualitiesList}
                                 onChange={handleChange}
                                 name="qualities"
